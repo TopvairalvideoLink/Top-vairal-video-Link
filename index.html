@@ -400,7 +400,66 @@ body{
       <button class="watch">
         ▶ ভিডিও দেখুন
       </button>
+<div class="premium-actions">
+  <button class="action-btn like-btn" onclick="likeVideo(this)">
+    ❤️ <span>Like</span> <b>0</b>
+  </button>
 
+  <button class="action-btn share-btn" onclick="shareVideo()">
+    🔗 <span>Share</span>
+  </button>
+</div>
+
+<style>
+.premium-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,.18);
+}
+
+.like-btn {
+  background: linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.share-btn {
+  background: linear-gradient(135deg,#4776e6,#8e54e9);
+}
+
+.action-btn:active {
+  transform: scale(.96);
+}
+</style>
+
+<script>
+function likeVideo(button) {
+  const count = button.querySelector("b");
+  count.textContent = Number(count.textContent) + 1;
+}
+
+function shareVideo() {
+  if (navigator.share) {
+    navigator.share({
+      title: "আজকের ভাইরাল ভিডিও",
+      text: "ভিডিওটি দেখুন!",
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert("ভিডিওর লিংক কপি হয়েছে!");
+  }
+}
+</script>
     </div>
 
   </div>
