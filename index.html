@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Top Viral Video</title>
+  <meta name="description" content="Top Viral Video - Trending and latest viral videos">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      padding-bottom: 80px;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #0d47ff, #5b21ff);
+      color: white;
+      padding: 22px 18px 28px;
+      border-radius: 0 0 28px 28px;
+      box-shadow: 0 8px 30px rgba(31, 70, 180, 0.25);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #ffd43b;
+    }
+
+    .search-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.15);
+      color: white;
+      font-size: 20px;
+    }
+
+    .hero {
+      margin-top: 28px;
+    }
+
+    .hero small {
+      opacity: .85;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      margin-top: 7px;
+      font-size: 31px;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      opacity: .9;
+      font-size: 14px;
+    }
+
+    /* SEARCH */
+    .search-box {
+      margin: -20px 18px 25px;
+      background: white;
+      padding: 7px;
+      border-radius: 18px;
+      display: flex;
+      box-shadow: 0 8px 25px rgba(0,0,0,.10);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      padding: 12px;
+      font-size: 15px;
+      background: transparent;
+    }
+
+    .search-box button {
+      border: 0;
+      background: #0d47ff;
+      color: white;
+      border-radius: 13px;
+      width: 48px;
+      font-size: 18px;
+    }
+
+    /* SECTION */
+    .section {
+      padding: 0 18px;
+      margin-top: 25px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+    }
+
+    .section-head a {
+      color: #0d47ff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* CATEGORY */
+    .categories {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      white-space: nowrap;
+      padding: 10px 16px;
+      border-radius: 30px;
+      background: white;
+      border: 1px solid #e4e8f0;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .category.active {
+      background: #0d47ff;
+      color: white;
+      border-color: #0d47ff;
+    }
+
+    /* TRENDING SLIDER */
+    .trending {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 5px;
+    }
+
+    .trending::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trend-card {
+      min-width: 285px;
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 7px 22px rgba(0,0,0,.08);
+    }
+
+    .thumb {
+      height: 175px;
+      position: relative;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: rgba(13,71,255,.95);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      padding-left: 3px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.25);
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #ff304f;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    .video-title {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .meta {
+      margin-top: 9px;
+      color: #7b8495;
+      font-size: 12px;
+    }
+
+    .watch {
+      margin-top: 13px;
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 12px;
+      background: #edf2ff;
+      color: #0d47ff;
+      font-weight: bold;
+    }
+
+    /* RECENT GRID */
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .recent-card {
+      background: white;
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0,0,0,.07);
+    }
+
+    .recent-thumb {
+      height: 135px;
+      position: relative;
+      background: #ddd;
+    }
+
+    .recent-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .recent-info {
+      padding: 11px;
+    }
+
+    .recent-title {
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .recent-meta {
+      color: #7d8595;
+      font-size: 11px;
+      margin-top: 7px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      height: 64px;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid #e6e9ef;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 10px 35px rgba(0,0,0,.15);
+      z-index: 100;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: #8992a4;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .nav-item div {
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav-item.active {
+      color: #0d47ff;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 800px) {
+      body {
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      header {
+        margin: 15px;
+        border-radius: 28px;
+      }
+
+      .recent-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .bottom-nav {
+        max-width: 500px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="topbar">
+      <div class="logo">TOP <span>VIRAL</span> VIDEO</div>
+      <button class="search-btn">⌕</button>
+    </div>
+
+    <div class="hero">
+      <small>WELCOME TO TOP VIRAL VIDEO</small>
+      <h1>Watch What's<br>Trending 🔥</h1>
+      <p>Discover the latest viral videos and trending content.</p>
+    </div>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input type="text" placeholder="Search viral videos...">
+    <button>🔍</button>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Categories</h2>
+    </div>
+
+    <div class="categories">
+      <div class="category active">🔥 All</div>
+      <div class="category">Trending</div>
+      <div class="category">TikTok</div>
+      <div class="category">Reels</div>
+      <div class="category">Shorts</div>
+      <div class="category">Funny</div>
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="section">
+    <div class="section-head">
+      <h2>🔥 Top Videos Today</h2>
+      <a href="#">View All</a>
+    </div>
+
+    <div class="trending">
+
+      <div class="trend-card">
+        <div class="thumb">
+          <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80">
+          <div class="badge">🔥 VIRAL</div>
+          <div class="play">▶</div>
+        </div>
+
+        <div class="video-info">
+          <div class="video-title">
+            Today's Most Viral Video 🔥
+          </div>
+          <div class="meta">
+            👁 146K views • 2 hours ago
+          </div>
+          <button class="watch">▶ Watch Now</button>
+        </div>
+      </div>
+
+
+      <div class="trend-card">
+        <div class="thumb">
+          <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=800&q=80">
+          <div class="badge">TRENDING</div>
+          <div class="play">▶</div>
+        </div>
+
+        <div class="video-info">
+          <div class="video-title">
+            Trending Video You Don't Want To Miss
+          </div>
+          <div class="meta">
+            👁 98K views • 4 hours ago
+          </div>
+          <button class="watch">▶ Watch Now</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- RECENT POSTS -->
+  <section class="section">
+    <div class="section-head">
+      <h2>🆕 Recent Posts</h2>
+      <a href="#">See All</a>
+    </div>
+
+    <div class="recent-grid">
+
+      <div class="recent-card">
+        <div class="recent-thumb">
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80">
+        </div>
+        <div class="recent-info">
+          <div class="recent-title">New Viral Video 🔥</div>
+          <div class="recent-meta">👁 42K views • 1h ago</div>
+        </div>
+      </div>
+
+      <div class="recent-card">
+        <div class="recent-thumb">
+          <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=600&q=80">
+        </div>
+        <div class="recent-info">
+          <div class="recent-title">Latest Trending Post</div>
+          <div class="recent-meta">👁 31K views • 2h ago</div>
+        </div>
+      </div>
+
+      <div class="recent-card">
+        <div class="recent-thumb">
+          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80">
+        </div>
+        <div class="recent-info">
+          <div class="recent-title">Must Watch Video</div>
+          <div class="recent-meta">👁 27K views • 3h ago</div>
+        </div>
+      </div>
+
+      <div class="recent-card">
+        <div class="recent-thumb">
+          <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80">
+        </div>
+        <div class="recent-info">
+          <div class="recent-title">Viral Content Today</div>
+          <div class="recent-meta">👁 19K views • 5h ago</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+
+    <div class="nav-item active">
+      <div>⌂</div>
+      Home
+    </div>
+
+    <div class="nav-item">
+      <div>🔥</div>
+      Trending
+    </div>
+
+    <div class="nav-item">
+      <div>▣</div>
+      Categories
+    </div>
+
+    <div class="nav-item">
+      <div>♡</div>
+      Saved
+    </div>
+
+    <div class="nav-item">
+      <div>◉</div>
+      Profile
+    </div>
+
+  </nav>
+
+</body>
+</html>
